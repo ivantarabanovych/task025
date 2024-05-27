@@ -1,0 +1,363 @@
+$primary-color: #007bff;
+$secondary-color: #ff9900;
+$background-gradient-start: #f5f7fa;
+$background-gradient-end: #c3cfe2;
+$font-family: "Montserrat", sans-serif;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$background-footer-color: #2d2c2c;
+
+// Міксини
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin button-style($bg-color) {
+  width: 174px;
+  height: 46px;
+  color: white !important;
+  background-color: $bg-color;
+  border: none;
+  border-radius: 50px;
+  @include flex-center;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+@mixin box-shadow {
+  box-shadow: 0 4px 8px $shadow-color;
+}
+
+// Основні стилі
+body {
+  font-family: $font-family;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(
+    135deg,
+    $background-gradient-start 0%,
+    $background-gradient-end 100%
+  );
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  @include flex-center;
+  background-color: white;
+  box-shadow: 2px 2px 20px $shadow-color;
+  z-index: 1000;
+
+  .logo {
+    margin-left: 100px;
+  }
+}
+
+.navbar {
+  margin: 0 80px;
+  @include flex-center;
+  width: 60rem;
+  padding: 24px;
+  justify-content: space-between;
+
+  a {
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: rgb(49, 47, 47);
+    }
+  }
+}
+
+.btn {
+  @include button-style($primary-color);
+}
+
+section {
+  max-width: 1194px;
+  margin: auto;
+  padding-top: 150px;
+}
+
+.box1,
+.box2 {
+  padding-top: 150px;
+}
+
+.box {
+  .row-item {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .image-sec1 {
+      flex: 0 0 45%;
+      order: 1;
+
+      img {
+        width: 100%;
+        border-radius: 15px;
+      }
+    }
+
+    .description {
+      flex: 0 0 45%;
+      order: 2;
+    }
+
+    .image-sec2 {
+      flex: 1 1 45%;
+      order: 2;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 15px;
+    }
+
+    .description2 {
+      flex: 1 1 45%;
+      order: 1;
+    }
+  }
+}
+
+.more,
+.add {
+  margin-top: 12px;
+  @include button-style($secondary-color);
+
+  &:hover {
+    background-color: darken($secondary-color, 10%);
+  }
+}
+
+.arrow1,
+.arrow {
+  border: solid currentColor;
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+  padding: 3px;
+  margin-left: 5px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.grid {
+  margin-bottom: 50px;
+}
+
+.box-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.container {
+  position: relative;
+  height: auto;
+  background-color: #f2f2f2;
+  border-radius: 25px;
+  @include flex-center;
+  flex-direction: column;
+  padding: 20px;
+  @include box-shadow;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
+
+  .header-box {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: #333;
+  }
+
+  .rectangle {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background-color: red;
+    border-radius: 50%;
+    top: 20px;
+    right: 20px;
+    @include flex-center;
+
+    .procent {
+      font-size: 1.4rem;
+      color: white;
+      font-weight: bold;
+    }
+  }
+
+  .container-vmist {
+    @include flex-center;
+    flex-direction: column;
+
+    .price {
+      @include flex-center;
+    }
+
+    p,
+    h3 {
+      margin: 0;
+    }
+
+    .price h4 {
+      margin: 20px 20px;
+    }
+
+    .plus-dis {
+      height: 46px;
+      width: 174px;
+      @include flex-center;
+      background-color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 50px;
+
+      h4 {
+        margin: 0 20px;
+      }
+    }
+  }
+
+  .sale {
+    color: red;
+  }
+}
+
+.main-fotter {
+  padding: 40px 0;
+  margin-top: 80px;
+
+  .main-fotter-content {
+    @include flex-center;
+    justify-content: space-between;
+    max-width: 1194px;
+    margin: auto;
+
+    .form {
+      max-width: 378px;
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-family: $font-family;
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .input-wrapper {
+        position: relative;
+        display: inline-block;
+
+        .email-input {
+          width: 100%;
+          height: 46px;
+          border-radius: 50px;
+          margin-top: 10px;
+          padding-right: 100px;
+          box-sizing: border-box;
+          background: linear-gradient(to right, transparent 70%, black 70%);
+          color: rgb(0, 0, 0);
+
+          &::placeholder {
+            color: rgba(0, 0, 0, 0.7);
+            text-indent: 22px;
+          }
+        }
+
+        &::after {
+          content: "Subscribe";
+          position: absolute;
+          top: 40%;
+          right: 22px;
+          color: rgb(255, 255, 255);
+          cursor: pointer;
+
+          &:hover {
+            background-color: darken($primary-color, 10%);
+          }
+        }
+      }
+    }
+
+    .coffee {
+      max-width: 378px;
+
+      p {
+        margin-top: 0;
+        font-family: $font-family;
+        font-size: 16px;
+      }
+
+      img {
+        float: right;
+        height: 40px;
+      }
+    }
+  }
+}
+
+.container-footer {
+  width: 1440px;
+  height: 240px;
+  background-color: $background-footer-color;
+
+  .logo-footer {
+    padding-top: 40px;
+    float: left;
+
+    img {
+      height: 40px;
+      margin-right: 10px;
+    }
+  }
+
+  .topic {
+    color: white;
+  }
+
+  .footer-description {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 120px;
+    padding: 40px;
+    float: right;
+
+    .onebyone {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      a {
+        text-decoration: none;
+        color: white;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+
+    .message {
+      color: #d9d9d9;
+      margin: 0;
+      padding-bottom: 15px;
+    }
+
+    .media img {
+      margin-right: 20px;
+    }
+  }
+}
