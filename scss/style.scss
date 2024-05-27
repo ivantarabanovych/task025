@@ -4,9 +4,10 @@ $background-gradient-start: #f5f7fa;
 $background-gradient-end: #c3cfe2;
 $font-family: "Montserrat", sans-serif;
 $shadow-color: rgba(0, 0, 0, 0.1);
-$background-footer-color: #2d2c2c;
+$button-colors: ($primary: $primary-color, $secondary: $secondary-color);
+$box-radii: (15px, 50px);
+$breakpoints: (xs: 320px, sm: 576px, md: 768px, lg: 992px, xl: 1200px);
 
-// Міксини
 @mixin flex-center {
   display: flex;
   justify-content: center;
@@ -29,7 +30,12 @@ $background-footer-color: #2d2c2c;
   box-shadow: 0 4px 8px $shadow-color;
 }
 
-// Основні стилі
+@mixin respond-to($breakpoint) {
+  @media (max-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
 body {
   font-family: $font-family;
   margin: 0;
@@ -72,8 +78,10 @@ header {
   }
 }
 
-.btn {
-  @include button-style($primary-color);
+@each $name, $color in $button-colors {
+  .btn-#{$name} {
+    @include button-style($color);
+  }
 }
 
 section {
@@ -93,45 +101,40 @@ section {
     align-items: center;
     flex-wrap: wrap;
 
-    .image-sec1 {
-      flex: 0 0 45%;
-      order: 1;
+    .image-sec1,
+    .image-sec2 {
+      flex: 1 1 45%;
 
       img {
         width: 100%;
-        border-radius: 15px;
+        border-radius: nth($box-radii, 1);
       }
     }
 
-    .description {
-      flex: 0 0 45%;
-      order: 2;
-    }
-
-    .image-sec2 {
+    .description,
+    .description2 {
       flex: 1 1 45%;
-      order: 2;
     }
 
-    img {
-      width: 100%;
-      border-radius: 15px;
+    .description {
+      order: 2;
     }
 
     .description2 {
-      flex: 1 1 45%;
       order: 1;
     }
   }
 }
 
-.more,
-.add {
-  margin-top: 12px;
-  @include button-style($secondary-color);
+@each $name, $color in $button-colors {
+  .more-#{$name},
+  .add-#{$name} {
+    margin-top: 12px;
+    @include button-style($color);
 
-  &:hover {
-    background-color: darken($secondary-color, 10%);
+    &:hover {
+      background-color: darken($color, 10%);
+    }
   }
 }
 
@@ -222,7 +225,7 @@ section {
       background-color: white;
       border: none;
       padding: 12px;
-      border-radius: 50px;
+      border-radius: nth($box-radii, 2);
 
       h4 {
         margin: 0 20px;
@@ -263,7 +266,7 @@ section {
         .email-input {
           width: 100%;
           height: 46px;
-          border-radius: 50px;
+          border-radius: nth($box-radii, 2);
           margin-top: 10px;
           padding-right: 100px;
           box-sizing: border-box;
@@ -277,7 +280,7 @@ section {
         }
 
         &::after {
-          content: "Subscribe";
+          content: 'Subscribe';
           position: absolute;
           top: 40%;
           right: 22px;
@@ -309,10 +312,6 @@ section {
 }
 
 .container-footer {
-  width: 1440px;
-  height: 240px;
-  background-color: $background-footer-color;
-
   .logo-footer {
     padding-top: 40px;
     float: left;
@@ -324,7 +323,7 @@ section {
   }
 
   .topic {
-    color: white;
+    color: #d9d9d9;
   }
 
   .footer-description {
@@ -360,4 +359,28 @@ section {
       margin-right: 20px;
     }
   }
+}
+
+@for $i from 1 through 5 {
+  .margin-top-#{$i} {
+    margin-top: $i * 10px;
+  }
+}
+
+@mixin conditional-styles($condition) {
+  @if $condition == 'dark' {
+    background-color: black;
+    color: white;
+  } @else if $condition == 'light' {
+    background-color: white;
+    color: black;
+  }
+}
+
+body.dark-mode {
+  @include conditional-styles('dark');
+}
+
+body.light-mode {
+  @include conditional-styles('light');
 }
